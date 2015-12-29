@@ -23,7 +23,7 @@ type WebSocket struct {
 }
 
 var num int
-
+var new_addr string
 type Client struct {
     Conn         net.Conn
     Nickname    string
@@ -218,7 +218,7 @@ func (self *Client) Write(data []byte) bool {
 
 func (self *Client) ConnTcpServer() bool {
 
-    conn, err := net.Dial("tcp", "192.168.4.149:8181")
+    conn, err := net.Dial("tcp", new_addr)
 
     if(err != nil) {
         log.Print("connect other tcp server error")
@@ -314,6 +314,7 @@ func main() {
         fmt.Println(err)
         os.Exit(0)
     }
+    new_addr = os.Args[2]
     fmt.Println("Check Arguments Ok")
     conn.Close()
     port := os.Args[1]
